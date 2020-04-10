@@ -1,10 +1,11 @@
-#Installing TAS for Kubernetes on Kind (WIP)
+# Installing TAS for Kubernetes on Kind (WIP)
+### *Currently in the early stages of development and features are changing rapidly*
 
-*Create your kubernetes cluster* 
+Create your kubernetes cluster
 ```
 kind create cluster --config=./cf-for-k8s/deploy/kind/cluster.yml --image kindest/node:v1.16.4 
 ```
-Access your cluster
+ Access your cluster
 ```
 kubectl cluster-info --context kind-kind
 ```
