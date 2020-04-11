@@ -2,11 +2,10 @@
 *Currently in the early stages of development and features are changing rapidly*
 
 ## Required Tools
+* [Download Kind]()
+* [Download TAS for Kubernetes](https://network.pivotal.io/products/tas-for-kubernetes/)
 
-
-* Download TAS for Kubernetes from the [ Tanzu Network ](https://network.pivotal.io/products/tas-for-kubernetes/)
-
-You need the following CLIs on your system to be able to run the script:
+You need the following CLIs on your system to be able to run the install script `generate-values.sh`:
 
 * [`kapp`](https://k14s.io/#install)
 * [`ytt`](https://k14s.io/#install) (v0.26.0+)
