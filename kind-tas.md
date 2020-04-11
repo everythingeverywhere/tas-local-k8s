@@ -5,7 +5,6 @@
 
 
 * Download TAS for Kubernetes from the [ Tanzu Network ](https://network.pivotal.io/products/tas-for-kubernetes/)
-```
 
 You need the following CLIs on your system to be able to run the script:
 
