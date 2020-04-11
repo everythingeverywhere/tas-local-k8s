@@ -3,11 +3,16 @@
 
 ## Required Tools
 
+
+* Download TAS for Kubernetes from the [ Tanzu Network ](https://network.pivotal.io/products/tas-for-kubernetes/)
+```
+
 You need the following CLIs on your system to be able to run the script:
-* Download Tas for Kubernetes from the [ Tanzu Network ](https://network.pivotal.io/)
+
 * [`kapp`](https://k14s.io/#install)
 * [`ytt`](https://k14s.io/#install) (v0.26.0+)
 * [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+* [`bosh`](https://bosh.io/docs/cli-v2-install/)
 
 
 Create your kubernetes cluster
