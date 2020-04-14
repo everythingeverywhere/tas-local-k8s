@@ -3,12 +3,16 @@
 
 ## Required 
 
-* Download TAS for kubernetes, extract and move to tas-for-k8s directory - [Download TAS for Kubernetes here](https://network.pivotal.io/products/tas-for-kubernetes/)
+Download TAS for kubernetes, extract and move to this directory - [Download TAS for Kubernetes here](https://network.pivotal.io/products/tas-for-kubernetes/)
 ```
 cd tas-for-kubernetes
 ```
+CF for k8s is the open source project TAS for k8s suppports, we will need files from their repo so we clone it:
+```
+git clone https://github.com/cloudfoundry/cf-for-k8s.git
+```
 
-* [Download Kind for your OS](https://kind.sigs.k8s.io/docs/user/quick-start/)
+[Download Kind for your OS](https://kind.sigs.k8s.io/docs/user/quick-start/)
 
 You need the following CLIs on your system to be able to run the install script `generate-values.sh`:
 
@@ -30,7 +34,7 @@ bin/generate-values.sh -d "vcap.me" > tas-values.yml
 
 In the file you just generated  `tas-values.yml`, paste the following to the bottom of it adding your credentials for Tanzu Network and DockerHub: 
 ```
-# Add password for Tanzu Network
+# Add your password for Tanzu Network
 system_registry: 
     hostname: registry.pivotal.io 
     username: username@vmware.com
