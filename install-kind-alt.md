@@ -1,10 +1,12 @@
 # Installing TAS for Kubernetes on Kind
 *Tas is currently in the early stages of development and features are changing rapidly*
+*If you have issues installing you can try [these instructions](https://github.com/everythingeverywhere/tas-local-k8s/blob/master/install-kind-alt.md) which is just one extra step*
 
 ## Required 
 
-Download TAS for kubernetes, extract it and move to this directory - [Download TAS for Kubernetes here](https://network.pivotal.io/products/tas-for-kubernetes/)
+Download TAS for kubernetes, extract it and go to this directory - [Download TAS for Kubernetes here](https://network.pivotal.io/products/tas-for-kubernetes/)
 ```
+#after downloading and placing in prefered location
 cd tas-for-kubernetes
 ```
 We need a directory to keep yaml files that will configure TAS for k8s to our kind cluster
@@ -35,10 +37,10 @@ kubectl cluster-info --context kind-kind
 ```
 Use Bosh to generate your SSL certificates and passwords
 ```
-bin/generate-values.sh -d "vcap.me" > tas-values.yml
+bin/generate-values.sh -d "vcap.me" > ./configuration-values/tas-values.yml
 ```
 
-In the file you just generated  `tas-values.yml`, paste the following to the bottom of it adding your credentials for Tanzu Network and DockerHub: 
+In the file you just generated  `./configuration-values/tas-values.yml`, paste the following to the bottom of it adding your credentials for Tanzu Network and DockerHub: 
 ```
 # Add your password for Tanzu Network
 system_registry: 
@@ -66,8 +68,9 @@ ytt -f config/ \
 
 ## Deploy TAS to your Kind cluster
 
+Feed the script the configuration for your cluster
 ```
-kapp deploy -a cf -f tas.rendered.yml
+./bin/install-tas.sh ./configuration-values
 ```
 
 ## Authenticate and Configure TAS
