@@ -3,8 +3,9 @@
 
 ## Required 
 
-Download TAS for kubernetes, extract it and move to this directory - [Download TAS for Kubernetes here](https://network.pivotal.io/products/tas-for-kubernetes/)
+Download TAS for kubernetes, extract it and go to this directory - [Download TAS for Kubernetes here](https://network.pivotal.io/products/tas-for-kubernetes/)
 ```
+#after downloading and placing in prefered location
 cd tas-for-kubernetes
 ```
 We need a directory to keep yaml files that will configure TAS for k8s to our kind cluster
@@ -13,9 +14,14 @@ mkdir configuration-values
 ```
 CF for k8s is the open source project TAS for k8s suppports, we will need files from their repo so we clone it:
 ```
-git clone https://github.com/cloudfoundry/cf-for-k8s.git
-# Move files from repo to file with same name in TAS for K8s
-mv /cf-for-k8s/config-optional/. ./config-optional/
+curl https://raw.githubusercontent.com/cloudfoundry/cf-for-k8s/master/config-optional/remove-resource-requirements.yml > custom-overlays/remove-resource-requirements.yml
+
+curl https://raw.githubusercontent.com/cloudfoundry/cf-for-k8s/master/config-optional/use-nodeport-for-ingress.yml > custom-overlays/use-nodeport-for-ingress.yml
+```
+
+We also need to move this file
+```
+mv custom-overlays/replace-loadbalancer-with-clusterip.yaml config-optional/.
 ```
 
 [Download Kind for your OS](https://kind.sigs.k8s.io/docs/user/quick-start/)
@@ -35,10 +41,10 @@ kubectl cluster-info --context kind-kind
 ```
 Use Bosh to generate your SSL certificates and passwords
 ```
-bin/generate-values.sh -d "vcap.me" > tas-values.yml
+bin/generate-values.sh -d "vcap.me" > ./configuration-values/tas-values.yml
 ```
 
-In the file you just generated  `tas-values.yml`, paste the following to the bottom of it adding your credentials for Tanzu Network and DockerHub: 
+In the file you just generated  `./configuration-values/tas-values.yml`, paste the following to the bottom of it adding your credentials for Tanzu Network and DockerHub: 
 ```
 # Add your password for Tanzu Network
 system_registry: 
@@ -54,20 +60,11 @@ app_registry:
   password: “password123”
 ```
 
-Render templates with extra configuration creating tas.rendered.yml
-```  
-ytt -f config/ \
-  -f custom-overlays/ \
-  -f tas-values.yml \
-  -f cf-for-k8s/config-optional/remove-resource-requirements.yml \
-  -f cf-for-k8s/config-optional/use-nodeport-for-ingress.yml \
-  | kbld -f - -f image_overrides.yml > tas.rendered.yml
-```
-
 ## Deploy TAS to your Kind cluster
 
+Feed the script the configuration for your cluster
 ```
-kapp deploy -a cf -f tas.rendered.yml
+./bin/install-tas.sh ./configuration-values
 ```
 
 ## Authenticate and Configure TAS
