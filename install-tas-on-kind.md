@@ -26,7 +26,7 @@ mv custom-overlays/replace-loadbalancer-with-clusterip.yaml config-optional/.
 
 [Download Kind for your OS](https://kind.sigs.k8s.io/docs/user/quick-start/)
 
-You need the following CLIs on your system to be able to run the install script `generate-values.sh`:
+You need the following CLIs on your system to be able to run the install script `bin/install-tas.sh` and the value generation script `bin/generate-values.sh`:
 
 [`Install CLI tools`](http://docs-pcf-staging.cfapps.io/tas-kubernetes/0-1/installing-command-line-tools.html)
 
@@ -64,7 +64,7 @@ app_registry:
 
 Feed the script the configuration for your cluster
 ```
-./bin/install-tas.sh ./configuration-values
+./bin/install-tas.sh configuration-values
 ```
 
 ## Authenticate and Configure TAS
@@ -94,7 +94,14 @@ cf target -o test-org -s test-space
 cf enable-feature-flag diego_docker
 ```
 
-Deploy an app from source code 
+## Deploy an app from source code 
+
+For a sample app you can youse the one from CF for K8s available from their repo
+```
+git clone https://github.com/cloudfoundry/cf-for-k8s.git
+```
+
+You can now push the code and soon visit your URL
 ```
 cf push test-node-app -p ./cf-for-k8s/tests/smoke/assets/test-node-app
 ```
